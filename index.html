@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -757,10 +758,12 @@ td.bold { font-weight:700; color:var(--t1); }
 .sh-bar { display:flex; gap:9px; }
 .sh-bar .search-wrap { flex:1; position:relative; }
 </style>
+
 </head>
 <body>
 
 <!-- ── SIDEBAR OVERLAY ── -->
+
 <div class="sb-overlay" id="sbOverlay" onclick="closeSidebar()"></div>
 
 <div id="app">
@@ -768,6 +771,7 @@ td.bold { font-weight:700; color:var(--t1); }
 <!-- ═══════════════════════════════════════════════════════════════
      SIDEBAR
 ═══════════════════════════════════════════════════════════════ -->
+
 <aside class="sidebar" id="sidebar">
   <div class="sb-brand">
     <div class="sb-brand-icon">🔧</div>
@@ -786,19 +790,22 @@ td.bold { font-weight:700; color:var(--t1); }
       <span class="sb-item-icon">🔍</span> Buscar Peças
     </button>
 
-    <div class="sb-group-label" style="margin-top:4px">Catálogo</div>
-    <button class="sb-item" onclick="go('produtos',this)">
-      <span class="sb-item-icon">📦</span> Produtos
-    </button>
-    <button class="sb-item" onclick="openProdModal()">
-      <span class="sb-item-icon">➕</span> Novo Produto
-    </button>
+```
+<div class="sb-group-label" style="margin-top:4px">Catálogo</div>
+<button class="sb-item" onclick="go('produtos',this)">
+  <span class="sb-item-icon">📦</span> Produtos
+</button>
+<button class="sb-item" onclick="openProdModal()">
+  <span class="sb-item-icon">➕</span> Novo Produto
+</button>
 
-    <div class="sb-group-label" style="margin-top:4px">Vendas</div>
-    <button class="sb-item" id="sbOrcItem" onclick="go('orcamentos',this)">
-      <span class="sb-item-icon">🧾</span> Orçamentos
-      <span class="sb-badge" id="sbOrcBadge">0</span>
-    </button>
+<div class="sb-group-label" style="margin-top:4px">Vendas</div>
+<button class="sb-item" id="sbOrcItem" onclick="go('orcamentos',this)">
+  <span class="sb-item-icon">🧾</span> Orçamentos
+  <span class="sb-badge" id="sbOrcBadge">0</span>
+</button>
+```
+
   </nav>
 
   <div class="sb-footer">
@@ -813,6 +820,7 @@ td.bold { font-weight:700; color:var(--t1); }
 <!-- ═══════════════════════════════════════════════════════════════
      TOPBAR
 ═══════════════════════════════════════════════════════════════ -->
+
 <header class="topbar" id="topbar">
   <button class="tb-menu-btn" id="menuBtn" onclick="toggleSidebar()" style="display:flex">
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
@@ -833,9 +841,11 @@ td.bold { font-weight:700; color:var(--t1); }
 <!-- ═══════════════════════════════════════════════════════════════
      PAGES
 ═══════════════════════════════════════════════════════════════ -->
+
 <main class="main" id="mainEl">
 
   <!-- ── DASHBOARD ── -->
+
   <section class="page active" id="page-dashboard">
     <div class="stat-grid" id="statGrid"></div>
     <div class="dash-cols">
@@ -856,6 +866,7 @@ td.bold { font-weight:700; color:var(--t1); }
   </section>
 
   <!-- ── BUSCA ── -->
+
   <section class="page" id="page-busca">
     <div class="search-hero">
       <div class="sh-title">🔍 Busca Inteligente</div>
@@ -886,6 +897,7 @@ td.bold { font-weight:700; color:var(--t1); }
   </section>
 
   <!-- ── PRODUTOS ── -->
+
   <section class="page" id="page-produtos">
     <div class="sec-head">
       <div>
@@ -905,6 +917,7 @@ td.bold { font-weight:700; color:var(--t1); }
   </section>
 
   <!-- ── ORÇAMENTOS ── -->
+
   <section class="page" id="page-orcamentos">
     <div class="sec-head">
       <div>
@@ -926,6 +939,7 @@ td.bold { font-weight:700; color:var(--t1); }
 <!-- ═══════════════════════════════════════════════════════════════
      ORÇAMENTO PANEL
 ═══════════════════════════════════════════════════════════════ -->
+
 <aside class="orc-panel" id="orcPanel">
   <div class="orc-header">
     <div class="orc-title">
@@ -965,6 +979,7 @@ td.bold { font-weight:700; color:var(--t1); }
 <!-- ═══════════════════════════════════════════════════════════════
      MODAL — PRODUTO
 ═══════════════════════════════════════════════════════════════ -->
+
 <div class="overlay" id="prodOverlay">
   <div class="modal">
     <div class="modal-hd">
@@ -1027,6 +1042,7 @@ td.bold { font-weight:700; color:var(--t1); }
 </div>
 
 <!-- ── MODAL CONFIRMAR LIMPAR ── -->
+
 <div class="overlay" id="clearOverlay">
   <div class="modal" style="max-width:360px">
     <div class="modal-hd">
@@ -1044,6 +1060,7 @@ td.bold { font-weight:700; color:var(--t1); }
 </div>
 
 <!-- ── MODAL ORC DETALHE ── -->
+
 <div class="overlay" id="orcDetailOverlay">
   <div class="modal" style="max-width:580px">
     <div class="modal-hd">
@@ -1060,9 +1077,11 @@ td.bold { font-weight:700; color:var(--t1); }
 </div>
 
 <!-- ── TOAST BOX ── -->
+
 <div class="toast-box" id="toastBox"></div>
 
 <!-- ── UTILITY STYLES ── -->
+
 <style>
 .w100 { width:100%; }
 .mt8 { margin-top:8px; }
@@ -1098,9 +1117,7 @@ function load() {
    DEMO DATA
 ═══════════════════════════════════════════════════════════════ */
 function seedDemo() {
-  return; // PATCH: nunca carregar dados mockados
   if (DB.produtos.length) return;
-
   DB.produtos = [
     { id:1,  nome:'Pastilha de Freio Dianteira',  modelo:'Honda Titan 160',     cat:'Freio',        preco:45.90,  estoque:12, desc:'Jogo completo — pastilha freio dianteiro orgânica',  img:'' },
     { id:2,  nome:'Corrente de Transmissão 428H', modelo:'Honda Titan 160',     cat:'Transmissão',  preco:89.00,  estoque:8,  desc:'Corrente 428H 130 elos com kit de emenda',            img:'' },
@@ -1630,9 +1647,8 @@ function prodCardHtml(p) {
         ${st}
       </div>
       <div class="prod-actions">
-                <button class="btn btn-ghost btn-icon" onclick="openProdModal(${p.id})" title="Editar">✏️</button>
-        <button class="btn btn-danger btn-icon" onclick="deleteProd(${p.id})" title="Excluir" style="font-size:.75rem">🗑</button>
-
+        <button class="btn btn-ghost btn-icon" onclick="openProdModal(${p.id})" title="Editar">✏️</button>
+        <button class="btn btn-danger btn-icon" onclick="delProd(${p.id})" title="Excluir">🗑</button>
         <button class="add-to-cart-btn" data-pid="${p.id}" onclick="addCart(${p.id})" title="Adicionar ao orçamento">+</button>
       </div>
     </div>
@@ -1668,16 +1684,7 @@ function openProdModal(id) {
   setTimeout(() => document.getElementById('fNome').focus(), 120);
 }
 
-function saveProd() /* PATCH: deletar produto */
-function deleteProd(id) {
-  if (!confirm('Excluir este produto?')) return;
-  DB.produtos = DB.produtos.filter(p => p.id !== id);
-  save();
-  renderProds();
-  renderDash();
-  toast('Produto excluído', 'nfo');
-}
- {
+function saveProd() {
   const nome  = document.getElementById('fNome').value.trim();
   const preco = parseFloat(document.getElementById('fPreco').value);
   if (!nome)  { toast('Nome da peça é obrigatório!', 'err'); document.getElementById('fNome').focus(); return; }
@@ -1706,6 +1713,14 @@ function deleteProd(id) {
   closeModal('prodOverlay');
   renderProds();
   renderDash();
+}
+
+function delProd(id) {
+  DB.produtos = DB.produtos.filter(p => p.id !== id);
+  save();
+  renderProds();
+  renderDash();
+  toast('Produto excluído', 'nfo');
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -1950,12 +1965,13 @@ window.addEventListener('resize', checkMobile);
 ═══════════════════════════════════════════════════════════════ */
 function init() {
   load();
-  seedDemo();
+  // seedDemo();
   renderDash();
   renderOrc();
   checkMobile();
 }
 init();
 </script>
+
 </body>
 </html>
