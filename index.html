@@ -1430,11 +1430,11 @@ async function buildPDF(items, total) {
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(16);
   doc.setTextColor(255, 255, 255);
-  doc.text('AutoPeças Pro', mg + 28, 17);
+  doc.text('AutoPecas Pro', mg + 28, 17);
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(8);
   doc.setTextColor(255, 200, 190);
-  doc.text('Sistema de Orçamento Inteligente', mg + 28, 24);
+  doc.text('Sistema de Orcamento Inteligente', mg + 28, 24);
 
   // ORC number + date top right
   doc.setFont('helvetica', 'bold');
@@ -1445,7 +1445,9 @@ async function buildPDF(items, total) {
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(8);
   doc.setTextColor(255, 200, 190);
-  doc.text(now.toLocaleDateString('pt-BR') + ' ' + now.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' }), W - mg, 24, { align:'right' });
+  const _d = now, _dd = String(_d.getDate()).padStart(2,'0'), _mm = String(_d.getMonth()+1).padStart(2,'0'), _yy = _d.getFullYear(), _hh = String(_d.getHours()).padStart(2,'0'), _mi = String(_d.getMinutes()).padStart(2,'0');
+  const _dataStr = _dd+'/'+_mm+'/'+_yy, _horaStr = _hh+':'+_mi;
+  doc.text(_dataStr + ' ' + _horaStr, W - mg, 24, { align:'right' });
 
   // ── ORÇAMENTO TITLE ──
   let y = 52;
@@ -1454,11 +1456,11 @@ async function buildPDF(items, total) {
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(11);
   doc.setTextColor(244, 245, 247);
-  doc.text('ORÇAMENTO DE PEÇAS', mg + 7, y + 2);
+  doc.text('ORCAMENTO DE PECAS', mg + 7, y + 2);
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(8);
   doc.setTextColor(155, 163, 178);
-  doc.text(`Gerado em ${now.toLocaleDateString('pt-BR')}`, W - mg - 4, y + 2, { align:'right' });
+  doc.text('Gerado em ' + _dataStr, W - mg - 4, y + 2, { align:'right' });
 
   // ── TABLE HEADER ──
   y += 18;
@@ -1515,7 +1517,7 @@ async function buildPDF(items, total) {
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(8);
     doc.setTextColor(220, 222, 228);
-    const nome = item.nome.length > 34 ? item.nome.slice(0, 32) + '…' : item.nome;
+    const nome = item.nome.length > 34 ? item.nome.slice(0, 32) + '...' : item.nome;
     doc.text(nome, colX[1] + 2, y + 5);
     if (item.modelo) {
       doc.setFont('helvetica', 'normal');
@@ -1528,7 +1530,7 @@ async function buildPDF(items, total) {
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(7);
     doc.setTextColor(155, 163, 178);
-    doc.text(item.cat || '—', colX[2] + 2, y + 5.5);
+    doc.text(item.cat || '-', colX[2] + 2, y + 5.5);
 
     // qty
     doc.setFont('helvetica', 'bold');
@@ -1539,13 +1541,13 @@ async function buildPDF(items, total) {
     // unit price
     doc.setTextColor(155, 163, 178);
     doc.setFontSize(7);
-    doc.text(fmt(item.preco), W - mg - 28, y + 5.5, { align:'right' });
+    doc.text('R$ ' + Number(item.preco||0).toFixed(2).replace('.',','), W - mg - 28, y + 5.5, { align:'right' });
 
     // subtotal
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(8);
     doc.setTextColor(232, 40, 11);
-    doc.text(fmt(sub), W - mg, y + 5.5, { align:'right' });
+    doc.text('R$ ' + Number(sub||0).toFixed(2).replace('.',','), W - mg, y + 5.5, { align:'right' });
 
     y += rowH;
     if (y > H - 55) {
@@ -1564,15 +1566,15 @@ async function buildPDF(items, total) {
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(8);
   doc.setTextColor(255, 200, 190);
-  doc.text('TOTAL DO ORÇAMENTO', mg + 8, y + 8);
+  doc.text('TOTAL DO ORCAMENTO', mg + 8, y + 8);
   const totalItens = items.reduce((a, i) => a + i.qty, 0);
   doc.setFontSize(7);
-  doc.text(`${items.length} produto${items.length>1?'s':''} • ${totalItens} item${totalItens>1?'s':''}`, mg + 8, y + 14);
+  doc.text(items.length + ' produto' + (items.length>1?'s':'') + ' - ' + totalItens + ' item' + (totalItens>1?'s':''), mg + 8, y + 14);
 
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(16);
   doc.setTextColor(255, 255, 255);
-  doc.text(fmt(total), W - mg, y + 13, { align:'right' });
+  doc.text('R$ ' + Number(total||0).toFixed(2).replace('.',','), W - mg, y + 13, { align:'right' });
 
   // ── FOOTER ──
   doc.setFillColor(18, 20, 24);
@@ -1580,10 +1582,10 @@ async function buildPDF(items, total) {
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(7);
   doc.setTextColor(87, 95, 112);
-  doc.text('AutoPeças Pro — Sistema de Orçamento Inteligente', mg, H - 9);
-  doc.text(`Página 1 de 1 • ${now.toLocaleDateString('pt-BR')}`, W - mg, H - 9, { align:'right' });
+  doc.text('AutoPecas Pro - Sistema de Orcamento Inteligente', mg, H - 9);
+  doc.text('Pagina 1 de 1 - ' + _dataStr, W - mg, H - 9, { align:'right' });
 
-  const fname = `orcamento-${orcNum}-${now.toLocaleDateString('pt-BR').replace(/\//g,'-')}.pdf`;
+  const fname = 'orcamento-' + orcNum + '-' + _dataStr.replace(/\//g,'-') + '.pdf';
   doc.save(fname);
 }
 
