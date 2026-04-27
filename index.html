@@ -1098,7 +1098,9 @@ function load() {
    DEMO DATA
 ═══════════════════════════════════════════════════════════════ */
 function seedDemo() {
+  return; // PATCH: nunca carregar dados mockados
   if (DB.produtos.length) return;
+
   DB.produtos = [
     { id:1,  nome:'Pastilha de Freio Dianteira',  modelo:'Honda Titan 160',     cat:'Freio',        preco:45.90,  estoque:12, desc:'Jogo completo — pastilha freio dianteiro orgânica',  img:'' },
     { id:2,  nome:'Corrente de Transmissão 428H', modelo:'Honda Titan 160',     cat:'Transmissão',  preco:89.00,  estoque:8,  desc:'Corrente 428H 130 elos com kit de emenda',            img:'' },
@@ -1628,7 +1630,9 @@ function prodCardHtml(p) {
         ${st}
       </div>
       <div class="prod-actions">
-        <button class="btn btn-ghost btn-icon" onclick="openProdModal(${p.id})" title="Editar">✏️</button>
+                <button class="btn btn-ghost btn-icon" onclick="openProdModal(${p.id})" title="Editar">✏️</button>
+        <button class="btn btn-danger btn-icon" onclick="deleteProd(${p.id})" title="Excluir" style="font-size:.75rem">🗑</button>
+
         <button class="add-to-cart-btn" data-pid="${p.id}" onclick="addCart(${p.id})" title="Adicionar ao orçamento">+</button>
       </div>
     </div>
@@ -1664,7 +1668,16 @@ function openProdModal(id) {
   setTimeout(() => document.getElementById('fNome').focus(), 120);
 }
 
-function saveProd() {
+function saveProd() /* PATCH: deletar produto */
+function deleteProd(id) {
+  if (!confirm('Excluir este produto?')) return;
+  DB.produtos = DB.produtos.filter(p => p.id !== id);
+  save();
+  renderProds();
+  renderDash();
+  toast('Produto excluído', 'nfo');
+}
+ {
   const nome  = document.getElementById('fNome').value.trim();
   const preco = parseFloat(document.getElementById('fPreco').value);
   if (!nome)  { toast('Nome da peça é obrigatório!', 'err'); document.getElementById('fNome').focus(); return; }
